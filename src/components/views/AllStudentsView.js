@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 
 import student_img from '../img/student.jpg';
 
-
 const AllStudentsView = (props) => {
   const {students, deleteStudent} = props;
+
   // If there is no student, display a message
   if (!students.length) {
     return (
