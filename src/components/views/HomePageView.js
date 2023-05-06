@@ -8,7 +8,7 @@ It constructs a React component to display the home page.
 import { Card, CardMedia, CardContent, Typography, Box, Button} from '@mui/material/';
 import { Link } from 'react-router-dom';
 
-import campus from '../img/campus.jpg';
+import campus from '../img/campuses.jpg';
 import students from '../img/students.jpg';
 
 const HomePageView = () => {

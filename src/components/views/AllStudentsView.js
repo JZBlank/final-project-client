@@ -6,6 +6,9 @@ It constructs a React component to display the all students view page.
 ================================================== */
 import { Link } from "react-router-dom";
 
+import student_img from '../img/student.jpg';
+
+
 const AllStudentsView = (props) => {
   const {students, deleteStudent} = props;
   // If there is no student, display a message
@@ -32,6 +35,9 @@ const AllStudentsView = (props) => {
               <Link to={`/student/${student.id}`}>
                 <h2>{name}</h2>
               </Link>
+              <img src={student_img} alt="student" height="200px"></img>
+              <br/>
+              <br/>
               <button onClick={() => deleteStudent(student.id)}>Delete</button>
               <hr/>
             </div>
