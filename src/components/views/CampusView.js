@@ -23,7 +23,7 @@ const CampusView = (props) => {
       <p><b>Description:</b> {campus.description}</p>
 
       <Box display="flex" justifyContent="center">
-        <Link to={{pathname:`/editcampus/${campus.id}`, state:{campus}}}>
+        <Link to={`/editcampus/${campus.id}`}>
           <Button variant="contained" sx={{margin:"5px"}}>Edit Campus Information</Button>
         </Link>
         

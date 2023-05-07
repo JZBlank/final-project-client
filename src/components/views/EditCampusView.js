@@ -7,7 +7,6 @@ It constructs a React component to display the new student page.
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { useLocation } from "react-router-dom";
 
 import EditCampusContainer from '../containers/EditCampusContainer';
 
@@ -38,10 +37,7 @@ const useStyles = makeStyles( () => ({
 }));
 
 const EditCampusView = (props) => {
-  const location = useLocation();
-  const campus = location.state.campus;
-
-  const {handleChange, handleSubmit} = props;
+  const {handleChange, handleSubmit, campus} = props;
   const classes = useStyles();
 
 
@@ -54,27 +50,27 @@ const EditCampusView = (props) => {
         <div className={classes.formContainer}>
           <div className={classes.formTitle}>
             <Typography style={{fontWeight: 'bold', fontFamily: 'Courier, sans-serif', fontSize: '20px', color: '#11153e'}}>
-              
+              {campus.name}
             </Typography>
           </div>
           <form style={{textAlign: 'center'}} onSubmit={(e) => handleSubmit(e)}>
             <label style= {{color:'#11153e', fontWeight: 'bold'}}>Name: </label>
-            <input defaultValue="hi" type="text" name="name" onChange ={(e) => handleChange(e)} />
+            <input defaultValue={campus.name} type="text" name="name" onChange ={(e) => handleChange(e)} />
             <br/>
             <br/>
 
-            {/* <label style={{color:'#11153e', fontWeight: 'bold'}}>Image URL </label>
+            <label style={{color:'#11153e', fontWeight: 'bold'}}>Image URL </label>
             <input defaultValue={campus.name} type="text" name="image_url" onChange={(e) => handleChange(e)} />
             <br/>
-            <br/> */}
+            <br/>
 
             <label style={{color:'#11153e', fontWeight: 'bold'}}>Address: </label>
-            <input defaultValue="hi" type="text" name="address" onChange={(e) => handleChange(e)} />
+            <input defaultValue={campus.address} type="text" name="address" onChange={(e) => handleChange(e)} />
             <br/>
             <br/>
 
             <label style={{color:'#11153e', fontWeight: 'bold'}}>Description: </label>
-            <input defaultValue="hi" type="text" name="description" onChange={(e) => handleChange(e)} />
+            <input defaultValue={campus.description} type="text" name="description" onChange={(e) => handleChange(e)} />
             <br/>
             <br/>
 
