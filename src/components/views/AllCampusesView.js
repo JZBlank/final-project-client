@@ -8,9 +8,6 @@ It constructs a React component to display all campuses.
 import { Link } from "react-router-dom";
 
 import campus_img from '../img/campuses.jpg';
-import { render } from "@testing-library/react";
-
-
 
 const AllCampusesView = (props) => {
   const {allCampuses, deleteCampus} = props;

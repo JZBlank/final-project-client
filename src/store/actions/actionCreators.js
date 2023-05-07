@@ -43,7 +43,12 @@ export const editCampus = (campus) => {
   };
 };
 
-
+export const removeStudent = (campus) => {
+  return {
+    type: at.REMOVE_STUDENT,
+    payload: campus,
+  }
+}
 
 
 //All Students

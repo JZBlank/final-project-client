@@ -8,12 +8,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import EditCampusContainer from '../containers/EditCampusContainer';
-
 // Create styling for the input form
 const useStyles = makeStyles( () => ({
   formContainer:{  
-    width: '500px',
+    width: '600px',
     backgroundColor: '#f0f0f5',
     borderRadius: '5px',
     margin: 'auto',
@@ -70,7 +68,7 @@ const EditCampusView = (props) => {
             <br/>
 
             <label style={{color:'#11153e', fontWeight: 'bold'}}>Description: </label>
-            <input defaultValue={campus.description} type="text" name="description" onChange={(e) => handleChange(e)} />
+            <textarea defaultValue={campus.description} rows="5" cols="40" type="text" name="description" onChange={(e) => handleChange(e)} />
             <br/>
             <br/>
 

@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // Create styling for the input form
 const useStyles = makeStyles( () => ({
   formContainer:{  
-    width: '500px',
+    width: '600px',
     backgroundColor: '#f0f0f5',
     borderRadius: '5px',
     margin: 'auto',
