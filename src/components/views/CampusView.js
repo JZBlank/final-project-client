@@ -11,7 +11,7 @@ import campus_img from '../img/campuses.jpg';
 
 // Take in props data to construct the component
 const CampusView = (props) => {
-  const {campus} = props;
+  const {campus, deleteCampus} = props;
   
   // Render a single Campus view with list of its students
   return (
@@ -23,8 +23,11 @@ const CampusView = (props) => {
       <p><b>Description:</b> {campus.description}</p>
 
       <Box display="flex" justifyContent="center">
-        <Button variant="contained" sx={{margin:"5px"}}>Edit Campus Information</Button>
-        <Button variant="outlined" sx={{margin:"5px"}}> Delete Campus</Button>
+        <Link to={{pathname:`/editcampus/${campus.id}`, state:{campus}}}>
+          <Button variant="contained" sx={{margin:"5px"}}>Edit Campus Information</Button>
+        </Link>
+        
+        <Button variant="outlined" sx={{margin:"5px"}} onClick={() => deleteCampus(campus.id)}>Delete Campus</Button>
       </Box>
 
       <br></br>
@@ -52,7 +55,7 @@ const CampusView = (props) => {
                 </TableCell>        
 
                 <TableCell align="center">
-                    <Button>Unenroll</Button>  
+                    <Button variant="outlined">Unenroll</Button>  
                 </TableCell>
               </TableRow>
             );
