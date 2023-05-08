@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'left',
     fontType: 'bold',
     fontFamily: 'sans-serif', 
-    fontSize: '35px', 
+    fontSize: '25px', 
     color: 'darkblue'
   },
   appBar:{
@@ -50,8 +50,8 @@ const Header = () => {
     <div className={classes.root}>
       <AppBar position="static" elevation={0} className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title} color="inherit" >
-            Campus Management System
+          <Typography variant="h7" className={classes.title} color="inherit" >
+           🏫 Campus Management System
           </Typography>
 
           <Link className={classes.links} to={'/'} >

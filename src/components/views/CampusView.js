@@ -9,9 +9,8 @@ import { Button, Box, Typography, Table, TableCell, TableContainer, TableHead, T
 
 import campus_img from '../img/campuses.jpg';
 
-import { Redirect, useHistory } from 'react-router-dom';
-import React, { useState } from 'react';
-import { fetchCampus } from "../../store/actions/actionCreators";
+import { useHistory } from 'react-router-dom';
+import React from 'react';
 
 // Take in props data to construct the component
 const CampusView = (props) => {
@@ -51,11 +50,11 @@ const CampusView = (props) => {
 
       <br></br>
 
-      <TableContainer>
-        <Table sx={{width:"100%"}}>
+      <TableContainer sx={{display:"flex", justifyContent:"center"}}>
+        <Table sx={{width:"90%"}}>
           <TableHead>
             <TableRow sx={{backgroundColor:"white"}}>
-              <TableCell align="center" sx={{fontSize:"20px"}}>Student Names</TableCell>
+              <TableCell align="center" sx={{fontSize:"20px", borderRight: "1px solid #E0E0E0"}}>Student Names</TableCell>
               <TableCell align="center" sx={{fontSize:"20px"}}>Status</TableCell>
             </TableRow>
           </TableHead>
@@ -63,8 +62,8 @@ const CampusView = (props) => {
           {campus.students.map( student => {
             let name = student.firstname + " " + student.lastname;
             return ( 
-              <TableRow key={student.id} >
-                <TableCell align="center">
+              <TableRow key={student.id} sx={{backgroundColor:"#F7F7F7"}} >
+                <TableCell align="center" sx={{borderRight: "1px solid #E0E0E0"}}>
                   <Link to={`/student/${student.id}`}>
                     <h2>{name}</h2>
                   </Link>   
