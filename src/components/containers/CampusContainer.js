@@ -8,9 +8,15 @@ If needed, it also defines the component's "connect" function.
 import Header from './Header';
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchCampusThunk } from "../../store/thunks";
+import { 
+  fetchCampusThunk,
+  deleteCampusThunk,
+  editCampusThunk,
+  removeStudentThunk
+} from "../../store/thunks";
 
 import { CampusView } from "../views";
+
 
 class CampusContainer extends Component {
   // Get the specific campus data from back-end database
@@ -18,13 +24,24 @@ class CampusContainer extends Component {
     // Get campus ID from URL (API link)
     this.props.fetchCampus(this.props.match.params.id);
   }
+    // Unmount when the component is being removed from the DOM:
+  componentWillUnmount() {
+    this.setState({redirect: false, redirectId: null});
+  }
 
   // Render a Campus view by passing campus data as props to the corresponding View component
   render() {
     return (
       <div>
         <Header />
-        <CampusView campus={this.props.campus} />
+        <CampusView 
+          campus={this.props.campus} 
+          deleteCampus={this.props.deleteCampus}
+          editCampus={this.props.editCampusThunk}
+          removeStudent={this.props.removeStudent}
+          fetchCampus={this.props.fetchCampus}
+
+        />
       </div>
     );
   }
@@ -36,13 +53,17 @@ class CampusContainer extends Component {
 const mapState = (state) => {
   return {
     campus: state.campus,  // Get the State object from Reducer "campus"
+    student: state.student
   };
 };
 // 2. The "mapDispatch" argument is used to dispatch Action (Redux Thunk) to Redux Store.
 // The "mapDispatch" calls the specific Thunk to dispatch its action. The "dispatch" is a function of Redux Store.
 const mapDispatch = (dispatch) => {
   return {
-    fetchCampus: (id) => dispatch(fetchCampusThunk(id)),
+    fetchCampus: (campusId) => dispatch(fetchCampusThunk(campusId)),
+    deleteCampus: (campusId) => dispatch(deleteCampusThunk(campusId)),
+    editCampus: (campusId) => dispatch(editCampusThunk(campusId)),
+    removeStudent: (student) => dispatch(removeStudentThunk(student))
   };
 };
 
