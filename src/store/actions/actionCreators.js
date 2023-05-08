@@ -43,10 +43,10 @@ export const editCampus = (campus) => {
   };
 };
 
-export const removeStudent = (campus) => {
+export const removeStudent = (student) => {
   return {
     type: at.REMOVE_STUDENT,
-    payload: campus,
+    payload: student,
   }
 }
 

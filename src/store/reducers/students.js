@@ -6,6 +6,7 @@ Depending on the Action object, the Reducer updates the State and return the new
 It also defines the State and its default initial value.
 ================================================== */
 import * as at from "../actions/actionTypes";  // Import Action Types ("at" keyword for Action Type)
+import { REMOVE_STUDENT } from "../actions/actionTypes";  // Import Action Type
 
 // REDUCER:
 const allStudents = (state=[], action) => {  // Empty array as default Initial State
@@ -16,6 +17,12 @@ const allStudents = (state=[], action) => {  // Empty array as default Initial S
       return [...state, action.payload]
     case at.DELETE_STUDENT:
       return state.filter(student => student.id!==action.payload);
+    case REMOVE_STUDENT:
+      return state.map(student => { 
+        return (
+          student.id===action.payload.id ? action.payload : student
+        );
+      });
     case at.EDIT_STUDENT:
       return state.map(student => { 
         return (

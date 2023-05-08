@@ -35,11 +35,15 @@ export const fetchCampusThunk = (id) => async (dispatch) => {  // The THUNK
 
 // Remove student from Campus
 // THUNK CREATOR:
-export const removeStudentThunk = (id) => async (dispatch) => {  // The THUNK
+export const removeStudentThunk = (student) => async (dispatch) => {  // The THUNK
   try {
-    // API "get" call to get a student data (based on "id")from database
-    let res = await axios.get(`/api/campuses/${id}`);  
-    dispatch(ac.removeStudent(res.data));
+    student.campusId = null;
+    
+    // API "put" call to update student (based on "id" and "student" object's data) from database
+    let updatedStudent = await axios.put(`/api/students/${student.id}`, student ); 
+
+    // // Update successful so change state with dispatch
+    dispatch(ac.removeStudent(updatedStudent));
   } catch(err) {
     console.error(err);
   }
@@ -51,7 +55,11 @@ export const removeStudentThunk = (id) => async (dispatch) => {  // The THUNK
 export const addCampusThunk = (campus) => async (dispatch) => {  // The THUNK
   try {
     // API "post" call to add "campus" object's data to database
-    let res = await axios.post(`/api/campuses`, campus);  
+    let res = await axios.post(`/api/campuses`, campus); 
+    let students = await axios.get(`/api/students`);
+    let campuses = await axios.get(`/api/campuses`);
+
+    console.log(res, students, campuses);
     // Call Action Creator to return Action object (type + payload with new campus data)
     // Then dispatch the Action object to Reducer to update state 
     dispatch(ac.addCampus(res.data));
@@ -78,7 +86,7 @@ export const deleteCampusThunk = campusId => async dispatch => {  // The THUNK
 // THUNK CREATOR:
 export const editCampusThunk = campus => async dispatch => {  // The THUNK
   try {
-    // API "put" call to update student (based on "id" and "campus" object's data) from database
+    // API "put" call to update campus (based on "id" and "campus" object's data) from database
     let updatedCampus = await axios.put(`/api/campuses/${campus.id}`, campus); 
     // Update successful so change state with dispatch
     dispatch(ac.editCampus(updatedCampus));

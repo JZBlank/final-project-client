@@ -10,23 +10,28 @@ import { Button, Box, Typography, Table, TableCell, TableContainer, TableHead, T
 import campus_img from '../img/campuses.jpg';
 
 import { Redirect, useHistory } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { fetchCampus } from "../../store/actions/actionCreators";
 
 // Take in props data to construct the component
 const CampusView = (props) => {
-  const {campus, deleteCampus, removeStudent } = props;
+  const {campus, deleteCampus, removeStudent, fetchCampus } = props;
   
   let history = useHistory();
 
   const HandleDelete = (id) => {
-
     deleteCampus(id);
     history.push('/campuses');
   }
 
+  const HandleRemoveStudent = (student) => {
+    removeStudent(student);
+    fetchCampus(campus.id);
+  }
+
   return (
     // Render a single Campus view with list of its students
-    campus.students.length !== 0 ?
+    campus.students.length != 0 ?
     <div>
       <h1>{campus.name}</h1>
       <img src={campus_img} alt="campus" height="300px"></img>
@@ -66,7 +71,7 @@ const CampusView = (props) => {
                 </TableCell>        
 
                 <TableCell align="center">
-                    <Button variant="outlined" onClick={() => removeStudent(campus.id)}>Unenroll</Button>  
+                    <Button variant="outlined" onClick={() => HandleRemoveStudent(student) }>Unenroll</Button>  
                 </TableCell>
               </TableRow>
             );
@@ -105,6 +110,11 @@ const CampusView = (props) => {
       <Typography variant="h5" sx={{fontWeight:"bold"}}>Total Students: {campus.students.length}</Typography>
 
       <div style={{fontWeight:"bold"}}><b>There are currently no students enrolled at {campus.name}.</b></div>
+
+      <br></br>
+      <br></br>
+        
+    <Button variant="contained" sx={{margin:"5px"}}>Enroll New Student</Button>
     </div>
   )
 };

@@ -38,7 +38,8 @@ class CampusContainer extends Component {
           campus={this.props.campus} 
           deleteCampus={this.props.deleteCampus}
           editCampus={this.props.editCampusThunk}
-          removeStudent={this.props.removeStudentThunk}
+          removeStudent={this.props.removeStudent}
+          fetchCampus={this.props.fetchCampus}
 
         />
       </div>
@@ -52,16 +53,17 @@ class CampusContainer extends Component {
 const mapState = (state) => {
   return {
     campus: state.campus,  // Get the State object from Reducer "campus"
+    student: state.student
   };
 };
 // 2. The "mapDispatch" argument is used to dispatch Action (Redux Thunk) to Redux Store.
 // The "mapDispatch" calls the specific Thunk to dispatch its action. The "dispatch" is a function of Redux Store.
 const mapDispatch = (dispatch) => {
   return {
-    fetchCampus: (id) => dispatch(fetchCampusThunk(id)),
+    fetchCampus: (campusId) => dispatch(fetchCampusThunk(campusId)),
     deleteCampus: (campusId) => dispatch(deleteCampusThunk(campusId)),
     editCampus: (campusId) => dispatch(editCampusThunk(campusId)),
-    removeStudent: (campusId) => dispatch(removeStudentThunk(campusId))
+    removeStudent: (student) => dispatch(removeStudentThunk(student))
   };
 };
 
