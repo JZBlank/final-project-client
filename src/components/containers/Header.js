@@ -50,7 +50,7 @@ const Header = () => {
     <div className={classes.root}>
       <AppBar position="static" elevation={0} className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h7" className={classes.title} color="inherit" >
+          <Typography className={classes.title} color="inherit" >
            🏫 Campus Management System
           </Typography>
 

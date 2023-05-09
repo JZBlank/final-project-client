@@ -23,6 +23,7 @@ class EditCampusContainer extends Component {
       name: this.props.campus.name,
       address:  this.props.campus.address,
       description:  this.props.campus.description,
+      imageUrl: this.props.campus.imageUrl,
       id: this.props.campus.id,
       redirect: false,
       redirectId: null
@@ -40,21 +41,31 @@ class EditCampusContainer extends Component {
   handleSubmit = async event => {
     event.preventDefault();  // Prevent browser reload/refresh after submit.
 
+    // Set up default image if imageUrl is empty
+    let newImageUrl = "https://images.pexels.com/photos/207684/pexels-photo-207684.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
+    if(this.state.imageUrl != ""){
+      newImageUrl = this.state.imageUrl;
+    }
+
     let campus = {
         name: this.state.name,
         address: this.state.address,
         description: this.state.description,
-        id: this.state.id
+        id: this.state.id,
+        imageUrl: newImageUrl
     };
     
     // Edit campus in back-end database
     let modifyCampus = await this.props.editCampus(campus);
 
-    // Update state, and trigger redirect to show the new campus
+    // Update state, and trigger redirect to show the edited campus
     this.setState({
       name: "", 
       address: "", 
       description: "", 
+      id: "",
+      imageUrl: "",
       redirect: true, 
       redirectId: this.props.campus.id
     });

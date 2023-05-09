@@ -27,12 +27,12 @@ const AllStudentsView = (props) => {
   // If there is at least one student, render All Students view 
   return (
     <div>
-      <h1 color="red">All Students</h1>
+      <h1>All Students</h1>
 
       {students.map((student) => {
           let name = student.firstname + " " + student.lastname;
           return (
-              <Box key={student.id}>
+              <div key={student.id}>
                 <Link to={`/student/${student.id}`} style={{color: '#5972FF' }}>
                   <h2>{name}</h2>
                 </Link>
@@ -44,7 +44,7 @@ const AllStudentsView = (props) => {
                 <br/>
                 <hr width="70%"/>
                 <br/>
-              </Box>
+              </div>
           );
         }
       )}
