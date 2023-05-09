@@ -7,7 +7,7 @@ import * as ac from './actions/actionCreators';  // Import Action Creators ("ac"
 
 const axios = require('axios');
 
-//All Campuses
+// All Campuses
 // THUNK CREATOR:
 export const fetchAllCampusesThunk = () => async (dispatch) => {  // The THUNK
   try {
@@ -46,23 +46,6 @@ export const fetchCampusThunk = (id) => async (dispatch) => {  // The THUNK
     console.error(err);
   }
 };
-
-// Remove student from Campus
-// THUNK CREATOR:
-export const removeStudentThunk = (student) => async (dispatch) => {  // The THUNK
-  try {
-    student.campusId = null;
-    
-    // API "put" call to update student (based on "id" and "student" object's data) from database
-    let updatedStudent = await axios.put(`/api/students/${student.id}`, student ); 
-
-    // // Update successful so change state with dispatch
-    dispatch(ac.removeStudent(updatedStudent));
-  } catch(err) {
-    console.error(err);
-  }
-};
-
 
 // Add Campus
 // THUNK CREATOR:
@@ -106,6 +89,21 @@ export const editCampusThunk = campus => async dispatch => {  // The THUNK
   }
 };
 
+// Remove student from Campus
+// THUNK CREATOR:
+export const removeStudentThunk = (student) => async (dispatch) => {  // The THUNK
+  try {
+    student.campusId = null;
+    
+    // API "put" call to update student (based on "id" and "student" object's data) from database
+    let updatedStudent = await axios.put(`/api/students/${student.id}`, student ); 
+
+    // // Update successful so change state with dispatch
+    dispatch(ac.removeStudent(updatedStudent));
+  } catch(err) {
+    console.error(err);
+  }
+};
 
 // All Students
 // THUNK CREATOR:
@@ -113,9 +111,35 @@ export const fetchAllStudentsThunk = () => async (dispatch) => {  // The THUNK
   try {
     // API "get" call to get "students" data from database
     let res = await axios.get(`/api/students`);  
+
+    //If imageUrl is null, add default image
+    for(let i = 0; i < res.data.length; i++){
+      if(res.data[i].imageUrl == null){
+        res.data[i].imageUrl = "https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+      }
+    }
+
     // Call Action Creator to return Action object (type + payload with "students" data)
     // Then dispatch the Action object to Reducer to update state 
     dispatch(ac.fetchAllStudents(res.data));  
+  } catch(err) {
+    console.error(err);
+  }
+};
+
+// Single Student
+// THUNK CREATOR:
+export const fetchStudentThunk = id => async dispatch => {  // The THUNK
+  try {
+    // API "get" call to get a specific student (based on "id") data from database
+    let res = await axios.get(`/api/students/${id}`);  
+    
+    if(res.data.imageUrl == null){
+      res.data.imageUrl = "https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+    }
+    // Call Action Creator to return Action object (type + payload with student data)
+    // Then dispatch the Action object to Reducer to display student data 
+    dispatch(ac.fetchStudent(res.data));
   } catch(err) {
     console.error(err);
   }
@@ -157,20 +181,6 @@ export const editStudentThunk = student => async dispatch => {  // The THUNK
     let updatedStudent = await axios.put(`/api/students/${student.id}`, student); 
     // Update successful so change state with dispatch
     dispatch(ac.editStudent(updatedStudent));
-  } catch(err) {
-    console.error(err);
-  }
-};
-
-// Single Student
-// THUNK CREATOR:
-export const fetchStudentThunk = id => async dispatch => {  // The THUNK
-  try {
-    // API "get" call to get a specific student (based on "id") data from database
-    let res = await axios.get(`/api/students/${id}`);  
-    // Call Action Creator to return Action object (type + payload with student data)
-    // Then dispatch the Action object to Reducer to display student data 
-    dispatch(ac.fetchStudent(res.data));
   } catch(err) {
     console.error(err);
   }
