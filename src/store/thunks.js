@@ -111,6 +111,7 @@ export const editCampusThunk = campus => async dispatch => {  // The THUNK
 // THUNK CREATOR:
 export const fetchAllStudentsThunk = () => async (dispatch) => {  // The THUNK
   try {
+    console.log("goes here to fetchallstudents..");
     // API "get" call to get "students" data from database
     let res = await axios.get(`/api/students`);  
     // Call Action Creator to return Action object (type + payload with "students" data)
@@ -127,6 +128,7 @@ export const addStudentThunk = (student) => async (dispatch) => {  // The THUNK
   try {
     // API "post" call to add "student" object's data to database
     let res = await axios.post(`/api/students`, student);  
+
     // Call Action Creator to return Action object (type + payload with new students data)
     // Then dispatch the Action object to Reducer to update state 
     dispatch(ac.addStudent(res.data));
