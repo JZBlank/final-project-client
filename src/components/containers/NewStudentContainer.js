@@ -13,6 +13,8 @@ import { Redirect } from 'react-router-dom';
 import NewStudentView from '../views/NewStudentView';
 import { addStudentThunk } from '../../store/thunks';
 
+const axios = require('axios');
+
 class NewStudentContainer extends Component {
   // Initialize state
   constructor(props){
@@ -20,6 +22,9 @@ class NewStudentContainer extends Component {
     this.state = {
       firstname: "", 
       lastname: "", 
+      email: "",
+      imageUrl: "https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      gpa: null,
       campusId: null, 
       redirect: false, 
       redirectId: null
@@ -36,12 +41,37 @@ class NewStudentContainer extends Component {
   // Take action after user click the submit button
   handleSubmit = async event => {
     event.preventDefault();  // Prevent browser reload/refresh after submit.
+    // Set up default image if imageUrl is empty
+    let newImageUrl = "https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+    let newCampusId = null;
+
+    if(this.state.imageUrl != ""){
+      newImageUrl = this.state.imageUrl;
+    }
+
+    let allCampuses = await axios.get(`/api/campuses`);
+    let idList = new Set();
+
+    for(let i = 0; i < allCampuses.data.length; i++){
+      idList.add(allCampuses.data[i].id);
+    }
+
+    if(this.state.campusId != null && this.state.campusId != ""){
+      if(idList.has(Number(this.state.campusId))){
+        newCampusId = Number(this.state.campusId);
+      }
+      else{
+        alert("Invalid Campus ID. Please enter a valid Campus ID.");
+        return false;
+      }
+    }
+
 
     let student = {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
-        campusId: this.state.campusId,
-        imageUrl: this.state.imageUrl,
+        campusId: newCampusId,
+        imageUrl: newImageUrl,
         email: this.state.email,
         gpa: this.state.gpa
     };
@@ -60,6 +90,8 @@ class NewStudentContainer extends Component {
       redirect: true, 
       redirectId: newStudent.id
     });
+
+    return true;
   }
 
   // Unmount when the component is being removed from the DOM:

@@ -104,8 +104,6 @@ const CampusView = (props) => {
       </Box>
 
       <br></br>
-      <Typography variant="h5" sx={{fontWeight:"bold"}}>Total Students: {campus.students.length}</Typography>
-
       <div style={{fontWeight:"bold"}}><b>There are currently no students enrolled at {campus.name}.</b></div>
 
       <br></br>
