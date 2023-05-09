@@ -43,9 +43,16 @@ export const editCampus = (campus) => {
   };
 };
 
-export const removeStudent = (student) => {
+export const unenrollStudent = (student) => {
   return {
-    type: at.REMOVE_STUDENT,
+    type: at.UNENROLL_STUDENT,
+    payload: student,
+  }
+}
+
+export const enrollStudent = (student, campus) => {
+  return {
+    type: at.ENROLL_STUDENT,
     payload: student,
   }
 }

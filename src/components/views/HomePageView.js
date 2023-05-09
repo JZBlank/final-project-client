@@ -15,7 +15,7 @@ const HomePageView = () => {
   // Render Home page view
   return (
     <div >
-      <h1>Home Page</h1>
+      <h1>Welcome!</h1>
 
       <Box sx={{ display: "inline-flex", padding:"10px" }}>
         <Card>

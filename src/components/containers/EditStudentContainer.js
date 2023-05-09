@@ -49,7 +49,7 @@ class EditStudentContainer extends Component {
     let newImageUrl = "https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
     let newCampusId = null;
 
-    if(this.state.imageUrl != ""){
+    if(this.state.imageUrl !== ""){
       newImageUrl = this.state.imageUrl;
     }
 
@@ -60,7 +60,7 @@ class EditStudentContainer extends Component {
       idList.add(allCampuses.data[i].id);
     }
 
-    if(this.state.campusId != null && this.state.campusId != ""){
+    if(this.state.campusId !== null && this.state.campusId !== ""){
       if(idList.has(Number(this.state.campusId))){
         newCampusId = Number(this.state.campusId);
       }
