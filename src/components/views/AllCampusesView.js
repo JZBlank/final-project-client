@@ -8,8 +8,6 @@ It constructs a React component to display all campuses.
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material/";
 
-import campus_img from '../img/campuses.jpg';
-
 const AllCampusesView = (props) => {
   const {allCampuses, deleteCampus} = props;
 

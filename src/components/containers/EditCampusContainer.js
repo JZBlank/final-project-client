@@ -44,7 +44,7 @@ class EditCampusContainer extends Component {
     // Set up default image if imageUrl is empty
     let newImageUrl = "https://images.pexels.com/photos/207684/pexels-photo-207684.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
-    if(this.state.imageUrl != ""){
+    if(this.state.imageUrl !== ""){
       newImageUrl = this.state.imageUrl;
     }
 

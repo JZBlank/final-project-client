@@ -12,7 +12,7 @@ import React from 'react';
 
 // Take in props data to construct the component
 const CampusView = (props) => {
-  const {campus, deleteCampus, removeStudent, fetchCampus } = props;
+  const {campus, deleteCampus, unenrollStudent, fetchCampus } = props;
   
   let history = useHistory();
 
@@ -21,14 +21,15 @@ const CampusView = (props) => {
     history.push('/campuses');
   }
 
-  const HandleRemoveStudent = (student) => {
-    removeStudent(student);
+  const HandleUnenrollStudent = (student) => {
+    unenrollStudent(student);
     fetchCampus(campus.id);
+    alert("Student unenrolled successfully.");
   }
 
   return (
     // Render a single Campus view with list of its students
-    campus.students.length != 0 ?
+    campus.students.length !== 0 ?
     <div>
       <h1>{campus.name}</h1>
       <img src={campus.imageUrl} alt="campus" height="300px"></img>
@@ -68,7 +69,7 @@ const CampusView = (props) => {
                 </TableCell>        
 
                 <TableCell align="center">
-                    <Button variant="outlined" onClick={() => HandleRemoveStudent(student) }>Unenroll</Button>  
+                    <Button variant="outlined" onClick={() => HandleUnenrollStudent(student) }>Unenroll</Button>  
                 </TableCell>
               </TableRow>
             );
@@ -79,8 +80,10 @@ const CampusView = (props) => {
 
     <br></br>
     <br></br>
-        
-    <Button variant="contained" sx={{margin:"5px"}}>Enroll New Student</Button>
+
+    <Link to={`/enrollstudents/${campus.id}`}>
+      <Button variant="contained" sx={{margin:"5px"}}>Enroll New Students</Button>
+    </Link>
 
     <br></br>
     <br></br>
@@ -92,15 +95,15 @@ const CampusView = (props) => {
     <div>
       <h1>{campus.name}</h1>
       <img src={campus.imageUrl} alt="campus" height="300px"></img>
-      <p>{campus.address}</p>
-      <p>{campus.description}</p>
+      <p><b>Address:</b> {campus.address}</p>
+      <p><b>Description:</b> {campus.description}</p>
 
       <Box display="flex" justifyContent="center">
         <Link to={`/editcampus/${campus.id}`}>
           <Button variant="contained" sx={{margin:"5px"}}>Edit Campus Information</Button>
         </Link>
         
-        <Button variant="outlined" sx={{margin:"5px"}} onClick={() => HandleDelete(campus.id)}>Delete Campus</Button>
+        <Button variant="outlined" sx={{margin:"5px", color:"white", border:"1px solid white"}} onClick={() => HandleDelete(campus.id)}>Delete Campus</Button>
       </Box>
 
       <br></br>
@@ -109,7 +112,10 @@ const CampusView = (props) => {
       <br></br>
       <br></br>
         
-    <Button variant="contained" sx={{margin:"5px"}}>Enroll New Student</Button>
+      <Link to={`/enrollstudents/${campus.id}`}>
+        <Button variant="contained" sx={{margin:"5px"}} >Enroll New Students</Button>
+      </Link>
+
     </div>
   )
 };
