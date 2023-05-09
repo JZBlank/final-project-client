@@ -7,11 +7,8 @@ It constructs a React component to display a single campus and its students (if 
 import { Link } from "react-router-dom";
 import { Button, Box, Typography, Table, TableCell, TableContainer, TableHead, TableRow, TableBody} from "@mui/material/";
 
-import campus_img from '../img/campuses.jpg';
-
-import { Redirect, useHistory } from 'react-router-dom';
-import React, { useState } from 'react';
-import { fetchCampus } from "../../store/actions/actionCreators";
+import { useHistory } from 'react-router-dom';
+import React from 'react';
 
 // Take in props data to construct the component
 const CampusView = (props) => {
@@ -34,7 +31,7 @@ const CampusView = (props) => {
     campus.students.length != 0 ?
     <div>
       <h1>{campus.name}</h1>
-      <img src={campus_img} alt="campus" height="300px"></img>
+      <img src={campus.imageUrl} alt="campus" height="300px"></img>
       <p><b>Address:</b> {campus.address}</p>
       <p><b>Description:</b> {campus.description}</p>
 
@@ -43,7 +40,7 @@ const CampusView = (props) => {
           <Button variant="contained" sx={{margin:"5px"}}>Edit Campus Information</Button>
         </Link>
         
-        <Button variant="outlined" sx={{margin:"5px"}} onClick={() => HandleDelete(campus.id)}>Delete Campus</Button>
+        <Button variant="outlined" sx={{margin:"5px", color:"white", border:"1px solid white"}} onClick={() => HandleDelete(campus.id)}>Delete Campus</Button>
       </Box>
 
       <br></br>
@@ -51,11 +48,11 @@ const CampusView = (props) => {
 
       <br></br>
 
-      <TableContainer>
-        <Table sx={{width:"100%"}}>
+      <TableContainer sx={{display:"flex", justifyContent:"center"}}>
+        <Table sx={{width:"90%"}}>
           <TableHead>
             <TableRow sx={{backgroundColor:"white"}}>
-              <TableCell align="center" sx={{fontSize:"20px"}}>Student Names</TableCell>
+              <TableCell align="center" sx={{fontSize:"20px", borderRight: "1px solid #E0E0E0"}}>Student Names</TableCell>
               <TableCell align="center" sx={{fontSize:"20px"}}>Status</TableCell>
             </TableRow>
           </TableHead>
@@ -63,9 +60,9 @@ const CampusView = (props) => {
           {campus.students.map( student => {
             let name = student.firstname + " " + student.lastname;
             return ( 
-              <TableRow key={student.id} >
-                <TableCell align="center">
-                  <Link to={`/student/${student.id}`}>
+              <TableRow key={student.id} sx={{backgroundColor:"#F7F7F7" }} >
+                <TableCell align="center" sx={{borderRight: "1px solid #E0E0E0"}}>
+                  <Link to={`/student/${student.id}`} style={{color: '#5972FF' }}>
                     <h2>{name}</h2>
                   </Link>   
                 </TableCell>        
@@ -94,7 +91,7 @@ const CampusView = (props) => {
     :
     <div>
       <h1>{campus.name}</h1>
-      <img src={campus_img} alt="campus" height="300px"></img>
+      <img src={campus.imageUrl} alt="campus" height="300px"></img>
       <p>{campus.address}</p>
       <p>{campus.description}</p>
 

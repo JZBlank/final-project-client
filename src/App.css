@@ -1,7 +1,10 @@
 .App {
-  background-color: beige;
   min-height: 100vh;
   text-align: center;
+  background-image: url("components/img/pattern.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  color: white;
 }
 
 .App-link {

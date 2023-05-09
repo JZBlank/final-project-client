@@ -12,7 +12,16 @@ const axios = require('axios');
 export const fetchAllCampusesThunk = () => async (dispatch) => {  // The THUNK
   try {
     // API "get" call to get "campuses" data from database
-    let res = await axios.get(`/api/campuses`);  
+    let res = await axios.get(`/api/campuses`);
+    
+
+    //If imageUrl is null, add default image
+    for(let i = 0; i < res.data.length; i++){
+      if(res.data[i].imageUrl == null){
+        res.data[i].imageUrl = "https://images.pexels.com/photos/207684/pexels-photo-207684.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+      }
+    }
+
     // Call Action Creator to return Action object (type + payload with "campuses" data)
     // Then dispatch the Action object to Reducer to update state 
     dispatch(ac.fetchAllCampuses(res.data));
@@ -27,6 +36,11 @@ export const fetchCampusThunk = (id) => async (dispatch) => {  // The THUNK
   try {
     // API "get" call to get a student data (based on "id")from database
     let res = await axios.get(`/api/campuses/${id}`);  
+
+    if(res.data.imageUrl == null){
+      res.data.imageUrl = "https://images.pexels.com/photos/207684/pexels-photo-207684.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+    }
+
     dispatch(ac.fetchCampus(res.data));
   } catch(err) {
     console.error(err);
@@ -56,10 +70,7 @@ export const addCampusThunk = (campus) => async (dispatch) => {  // The THUNK
   try {
     // API "post" call to add "campus" object's data to database
     let res = await axios.post(`/api/campuses`, campus); 
-    let students = await axios.get(`/api/students`);
-    let campuses = await axios.get(`/api/campuses`);
 
-    console.log(res, students, campuses);
     // Call Action Creator to return Action object (type + payload with new campus data)
     // Then dispatch the Action object to Reducer to update state 
     dispatch(ac.addCampus(res.data));
