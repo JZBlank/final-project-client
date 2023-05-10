@@ -21,7 +21,6 @@ const StudentView = (props) => {
 
   if(student.gpa !== null && student.gpa !== ''){
     newRoundedGPA = Number(student.gpa).toFixed(2);
-    console.log("NEW NUMBER", newRoundedGPA);
   }
 
 
