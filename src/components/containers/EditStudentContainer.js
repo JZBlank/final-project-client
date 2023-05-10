@@ -69,7 +69,7 @@ class EditStudentContainer extends Component {
         return false;
       }
     }
-    
+
     let student = {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
