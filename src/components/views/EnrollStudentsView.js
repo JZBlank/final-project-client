@@ -5,7 +5,7 @@ The Views component is responsible for rendering web page with data provided by 
 It constructs a React component to display the new student page.
 ================================================== */
 import { Link } from "react-router-dom";
-import { Button, Box, Typography, Table, TableCell, TableContainer, TableHead, TableRow, TableBody} from "@mui/material/";
+import { Button, Typography, Table, TableCell, TableContainer, TableHead, TableRow, TableBody} from "@mui/material/";
 
 const EnrollStudentsView = (props) => {
   const {students, allCampuses, campus, fetchCampus, enrollStudent } = props;
@@ -19,14 +19,13 @@ const EnrollStudentsView = (props) => {
   let notEnrolledNum = 0;
 
   // If there are no students to enroll, display a message
-  {students.map( student => {
+  students.map( student => {
     if(student.campusId !== campus.id){
         notEnrolledNum += 1;
     }
   })
-  }
 
-  if (! notEnrolledNum) {
+  if (!notEnrolledNum) {
     return (
     <div>
       <h1>Enroll Students</h1>

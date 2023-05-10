@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 
 const StudentView = (props) => {
   const { student, deleteStudent } = props;
+  let newRoundedGPA = null;
 
   let history = useHistory();
 
@@ -17,6 +18,11 @@ const StudentView = (props) => {
     deleteStudent(id);
     history.push('/students');
   }
+
+  if(student.gpa !== null && student.gpa !== ''){
+    newRoundedGPA = Number(student.gpa).toFixed(2);
+  }
+
 
   // Render a single Student view 
   return (
@@ -27,7 +33,7 @@ const StudentView = (props) => {
       <p><b>First Name: </b> {student.firstname}</p>
       <p><b>Last Name: </b> {student.lastname}</p>
       <p><b>Email: </b> {student.email}</p>
-      <p><b>GPA: </b> {student.gpa}</p>
+      <p><b>GPA: </b>{newRoundedGPA}</p>
       <p><b>Attends: </b></p>
       <Link to={`/campus/${student.campus.id}`} style={{color: '#5972FF' }}>
         <h2>{student.campus.name}</h2>
@@ -49,7 +55,7 @@ const StudentView = (props) => {
       <p><b>First Name: </b> {student.firstname}</p>
       <p><b>Last Name: </b> {student.lastname}</p>
       <p><b>Email: </b> {student.email}</p>
-      <p><b>GPA: </b> {student.gpa}</p>
+      <p><b>GPA: </b>{newRoundedGPA}</p>
       <h3>(Not currently enrolled in a college)</h3>
 
       <Box display="flex" justifyContent="center">
